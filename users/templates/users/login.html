@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block main %}
+<div style="text-align: center;" class="padding-top-4 pb-5 mb-5">
+    <div class="content-section col-xs-8 col-sm-6 col-md-4 col-lg-4 offset-xs-2 offset-sm-3 offset-md-4 offset-lg-4 ">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group mb-4">
+                <legend class="border-bottom margin-bottom-2_5 red-color">AUTENTIFICARE</legend>
+                {% render_field form.username class="login-input" placeholder="Email..." %}
+                {% render_field form.password class="login-input" placeholder="Parolă..." %}
+            </fieldset>
+            <div class="form-group">
+                <button class="login-button ps-4 pe-4" type="submit">Autentifică-te</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock main %}

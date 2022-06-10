@@ -1,0 +1,111 @@
+{% load static %}
+{% load i18n %}
+{% load relationList %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="utf-8">
+      <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="Meta description">
+      <meta name="keywords" content="meta keywords">
+      <title>{% block title %}Titlu{% endblock %}</title>
+
+      <!-- Loading -->
+      <link rel="stylesheet" type="text/css" href="{% static 'css/loader.css' %}">
+      <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+      <!-- Js Cookie -->
+      <script>
+          function getCookie(cname) {
+              var name = cname + "=";
+              var decodedCookie = decodeURIComponent(document.cookie);
+              var ca = decodedCookie.split(';');
+              for (var i = 0; i < ca.length; i++) {
+                  var c = ca[i];
+                  while (c.charAt(0) == ' ') {
+                      c = c.substring(1);
+                  }
+                  if (c.indexOf(name) == 0) {
+                      return c.substring(name.length, c.length);
+                  }
+              }
+              return "";
+          }
+          
+      </script>
+      <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+      <!-- Jquery -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+      
+      <!-- Fengyuan Chen's Datepicker -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous" />
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js" integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
+      
+      <!-- Select2 -->
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.12/css/select2.min.css" type="text/css" media="screen" rel="stylesheet">
+      <!-- Proprietary -->
+      <link rel="stylesheet" type="text/css" href="{% static 'css/master.css' %}" />
+      <link rel="stylesheet" type="text/css" href="{% static 'css/pagination.css' %}" />
+      <!-- fonts -->
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;1,600&display=swap" rel="stylesheet">
+  </head>
+  <body>
+      <nav class="navbar navbar-light mx-auto w-100">
+        <div class="container justify-content-center" >
+          <div class="row justify-content-center w-100">
+            <div class="col-12 col-md-11 col-lg-10 mt-2 d-flex flex-column flex-md-row" style="align-items:center; justify-content:space-between">
+              <a class="navbar-brand" href="/"> <img src="{% static 'images/logo.png' %}" width="144" height="81"> </a>
+              <ul class="navbar-nav mr-auto custom-navbar d-block">
+                <div class="d-flex justify-content-around row m-0">
+                    <div class="col-12 d-flex p-0 justify-content-around flex-wrap">
+                      {% if user.is_authenticated %}
+                      <div class="nav-item">
+                        <a class="nav-link" href="{% url 'change-password' %}">Schimbă parola</a>
+                      </div>
+                        <div class="nav-item">
+                          <a class="nav-link" href="/logout">Logout</a>
+                        </div>
+                      {% else %}
+                      <div  class="nav-item">
+                        <a  class="nav-link" href="/login">Login</a>
+                      </div>
+                      <div  class="nav-item">
+                        <a  class="nav-link" href="/register">Register</a>
+                      </div>
+                      {% endif %}
+                    </div>
+                  </div>
+              </ul>
+            </div>
+            
+          </div>
+          
+        </div>
+         
+      </nav>
+      <div id="main-wrapper">
+        <div class="container container-body">
+          {% block main %}{% endblock %}
+      </div>
+      <footer class="footer mt-2">
+          <div class="container text-center">
+              <p class="p-footer">
+                <strong>&copy;
+                <a href="https://site.com" target="_blank" class="a-custom">
+                </strong>
+              </p>
+          </div>
+      </footer>
+      </div>
+      <!-- Run after Scripts -->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+          crossorigin="anonymous"></script>
+  </body>
+</html>

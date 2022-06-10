@@ -1,0 +1,21 @@
+{% load my_tags %}
+{% if is_paginated %}
+{% load i18n %}
+<div class="row bottom-pagination accent">
+    <a {% if page_obj.has_previous %} href="?{% param_replace page=1 %}" class="pagEnabled"
+    {% endif %}>
+        <i class="bi bi-chevron-bar-left"></i>
+    </a>
+    <a {% if page_obj.previous_page_number > 0%} href="?{% param_replace page=page_obj.previous_page_number %}" class="pagEnabled" {% endif %}>
+        <i class="bi bi-chevron-left"></i>
+    </a>
+    {% trans 'general-page' %} {{ page_obj.number }} {%trans 'general-from' %} {{ paginator.num_pages }}
+
+    <a {% if page_obj.has_next %} href="?{% param_replace page=page_obj.next_page_number %}" class="pagEnabled" {% endif %}>
+    <i class="bi bi-chevron-right"></i>
+    </a>
+    <a {% if page_obj.has_next %} href="?{% param_replace page=paginator.num_pages %}" class="pagEnabled" {% endif %}>
+    <i class="bi bi-chevron-bar-right"></i>
+    </a>
+</div>
+{% endif %}

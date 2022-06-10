@@ -1,0 +1,36 @@
+
+/* PAGINATION */
+.bottom-pagination{
+    display: flex;
+    justify-content: center;
+    margin: 5px 0px;
+    color: black;
+    font-size: small;
+    align-items: center;
+  }
+  
+  .bottom-pagination.accent{
+    color: #306c98;
+  }
+  
+  .bottom-pagination > a.pagEnabled{
+    color: black!important;
+  }
+  
+  
+  .bottom-pagination.accent > a.pagEnabled{
+    color: #306c98!important;
+  }
+  
+  .bottom-pagination > a{
+    font-size: smaller;
+    width: auto;
+    padding: 0px 4px;
+    color: #ffffff5e!important;
+  }
+  
+  .bottom-pagination.accent > a{
+    color: #306c985e!important;
+  }
+  /* END PAGINATION */
+  

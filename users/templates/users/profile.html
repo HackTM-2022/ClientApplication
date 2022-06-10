@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block main %}
+
+<div class="col-lg-8 col-lg-offset-2">
+
+  <div id="alert-success" class="alert alert-success" onclick="this.style.display='none';">
+    <div name="text-content">This is an alert box.</div>
+  </div>
+
+  <div class="content-section">
+    <div class="media">
+      <div class="media-body">
+        <h2 class="account-heading">{{ user.username }}</h2>
+        <p class="text-secondary">{{ user.email }}</p>
+      </div>
+    </div>
+    <!-- FORM HERE -->
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">My Polls</h3>
+      </div>
+      <ul class="list-group">
+        {% for poll in polls %}
+        <li class="list-group-item btn-menu-option" onClick="location.href='{% url 'vote' poll.id %}'">
+          <strong>{{ poll.question }}</strong>
+          <span class="pull-right">
+            <a href="{% url 'vote' poll.id %}" class="btn btn-info btn-xs">View</a> &nbsp;
+            <a id="delete_poll_{{ poll.id }}" class="btn btn-default btn-xs">Delete</a> &nbsp;
+            <script>
+              $("#delete_poll_{{ poll.id }}").click(function (event) {
+                event.stopPropagation();
+                const url = window.location.href;
+                var csrftoken = Cookies.get('csrftoken');
+                $("#alert-success").hide();
+                $.ajax({
+                  type: 'POST',
+                  url: url,
+                  headers: { 'X-CSRFToken': csrftoken },
+                  data: { 'delete_poll': "{{ poll.id }}" },
+                  async: false,
+                  success: function (response) {
+                    console.log("Delete received: " + response["Received"]);
+                    $("#delete_poll_{{ poll.id }}").parent().parent().remove();
+                    if ($("#alert-success").hasClass("alert-success") == false)
+                      $("#alert-success").toggleClass("alert-success");
+                    $("#alert-success").show();
+                    $("#alert-success").find('div[name="text-content"]').html("Poll was successfully deleted.");
+                  },
+                  error: function (response) {
+                    if ($("#alert-success").hasClass("alert-success") == true)
+                      $("#alert-success").toggleClass("alert-success");
+                    $("#alert-success").show();
+                    const statusText = response.statusText
+                    if (contentType && contentType == "Forbidden")
+                      $("#alert-success").find('div[name="text-content"]').html("Poll was not deleted. Error: CSRF Error");
+                    else
+                      $("#alert-success").find('div[name="text-content"]').html("Poll was not deleted. Error: " + response["responseJSON"]["error"]);
+                  }
+                });
+              });
+            </script>
+          </span>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="panel panel-default ">
+      <div class="panel-heading">
+        <h3 class="panel-title">My Quizes</h3>
+      </div>
+      <ul class="list-group">
+        {% for quiz in quizes %}
+        <li class="list-group-item btn-menu-option" onClick="location.href='{% url 'quiz' quiz.id %}'">
+          <strong>{{ quiz.name }}</strong>
+          <span class="pull-right">
+            <a href="{% url 'quiz' quiz.id %}" class="btn btn-info btn-xs">View</a> &nbsp;
+            <a id="delete_quiz_{{ quiz.id }}" class="btn btn-default btn-xs">Delete</a> &nbsp;
+            <script>
+              $("#delete_quiz_{{ quiz.id }}").click(function (event) {
+                event.stopPropagation();
+                const url = window.location.href;
+                var csrftoken = Cookies.get('csrftoken');
+                $("#alert-success").hide();
+                $.ajax({
+                  type: 'POST',
+                  url: url,
+                  headers: { 'X-CSRFToken': csrftoken },
+                  data: { 'delete_quiz': "{{ quiz.id }}" },
+                  async: false,
+                  success: function (response) {
+                    console.log("Delete received: " + response["Received"]);
+                    $("#delete_quiz_{{ quiz.id }}").parent().parent().remove();
+                    if ($("#alert-success").hasClass("alert-success") == false)
+                      $("#alert-success").toggleClass("alert-success");
+                    $("#alert-success").show();
+                    $("#alert-success").find('div[name="text-content"]').html("Quiz was successfully deleted.");
+                  },
+                  error: function (response) {
+                    if ($("#alert-success").hasClass("alert-success") == true)
+                      $("#alert-success").toggleClass("alert-success");
+                    $("#alert-success").show();
+                    const statusText = response.statusText
+                    if (contentType && contentType == "Forbidden")
+                      $("#alert-success").find('div[name="text-content"]').html("Quiz was not deleted. Error: CSRF Error");
+                    else
+                      $("#alert-success").find('div[name="text-content"]').html("Quiz was not deleted. Error: " + response["responseJSON"]["error"]);
+                  }
+                });
+              });
+            </script>
+          </span>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+
+{% endblock main %}
