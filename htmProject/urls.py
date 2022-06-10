@@ -29,6 +29,7 @@ urlpatterns = [
     # Home page
     path('', app_views.HomeView.as_view(), name='home'),
     path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('images/favicon.ico'))),
+    path("registerBike", app_views.RegisterBikeView.as_view(),name='register-bike'),
 
     # Auth
     path('register/', user_views.register, name='register'),
