@@ -89,4 +89,6 @@ class TmpConfirm(UserMixin,TemplateView):
 #         self.object = form.save()
 #         return HttpResponse(200)
 #     def form_invalid(self, form):
-#         return HttpResponse(400)
+#         return HttpResponse(400)#         return HttpResponse(400)
+class QRView(TemplateView):
+    template_name = "qr.html"

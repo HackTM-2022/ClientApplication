@@ -31,6 +31,8 @@ urlpatterns = [
     path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('images/favicon.ico'))),
     path("registerBike", app_views.RegisterBikeView.as_view(),name='register-bike'),
 
+    # QR page
+    path('qr/', app_views.QRView.as_view(), name="QR"),
     # Auth
     path('register/', user_views.register, name='register'),
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),

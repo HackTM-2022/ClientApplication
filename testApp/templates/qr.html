@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Homepage{% endblock %}
+{% block main %}
+{% load static %}
+
+
+<div>
+    <video id="preview"></video>
+</div>
+
+
+<script src="{% static 'js/instascan.min.js' %}"></script>
+<script src="{% static 'js/qr.js' %}">
+
+{% endblock %}
