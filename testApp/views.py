@@ -12,7 +12,6 @@ from django.conf import settings
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt,ensure_csrf_cookie
 from django.db.models import Q
-from testApp.xlwtHelper import *
 from zipfile import ZipFile
 
 from testApp.models import *

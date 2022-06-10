@@ -51,4 +51,10 @@ class CustomUser(AbstractUser):
     REQUIRED_FIELDS = ["first_name","last_name","password"]
 
 
-	
+class Bike(models.Model):
+    secret = models.CharField(max_length=256,blank=True,default="")
+
+class Reservation(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=False, blank=False, related_name="reservations")
+    bike = models.ForeignKey(Bike, on_delete=models.CASCADE, null=False, blank=False, related_name="reservations")
+    
