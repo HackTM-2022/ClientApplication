@@ -23,7 +23,7 @@ class UserAdmin(DjangoUserAdmin):
 
 @admin.register(Bike)
 class BikeAdmin(admin.ModelAdmin):
-    list_display = ["secret"]
+    list_display = ["secret",'code']
 
 
 @admin.register(Reservation)

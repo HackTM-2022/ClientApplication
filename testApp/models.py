@@ -79,6 +79,11 @@ class Bike(models.Model):
          unique=True,
          default = uuid.uuid4,
          editable = True)
+    code = models.UUIDField(
+         primary_key = False,
+         unique=True,
+         default = uuid.uuid4,
+         editable = True)
 
 class Reservation(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=False, blank=False, related_name="reservations")

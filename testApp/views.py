@@ -66,7 +66,7 @@ class CreateReservation(UserMixin,View):
         form = ReservationForm(self.request.POST)
         if form.is_valid():
             bkc = self.request.POST.get("bike_code")
-            bk_queryset = Bike.objects.all().filter(secret=bkc).order_by("pk")
+            bk_queryset = Bike.objects.all().filter(code=bkc).order_by("pk")
             if len(bk_queryset)>0:
                 bk = bk_queryset[0]
                 if self.request.user:
@@ -89,27 +89,34 @@ class CreateReservation(UserMixin,View):
     def get(self, request, *args, **kwargs):
         raise Http404()
 
-# POST bike-ping with bike_code lat lon battery
+# POST bike-ping with bike_secret lat lon battery ?bike_code
 class ReceiveBikePing(View):
     def get(self, request, *args, **kwargs):
         raise Http404()
     def post(self, request, *args, **kwargs):
         form = BikeDataForm(self.request.POST)
         if form.is_valid():
-            bkc = self.request.POST.get("bike_code")
-            bk_queryset = Bike.objects.all().filter(secret=bkc).order_by("pk")
+            bks = self.request.POST.get("bike_secret")
+            bk_queryset = Bike.objects.all().filter(secret=bks).order_by("pk")
             if len(bk_queryset)>0:
                 bk = bk_queryset[0]
                 # Save the bike data
                 bd = form.save()
                 bd.bike = bk
                 bd.save()
+                # If receive a new code, update it
+                bkc = self.request.POST.get("bike_code")
+                if bkc:
+                    bk.code=bkc
+                    bk.save()
                 # If a job is available, update
                 res = Reservation.objects.all().filter(bike=bk,active=True)
                 if len(res)>0:
                     return JsonResponse({"email": res.user.email, \
                                         "first_name":res.user.first_name, \
                                         "last_name":res.user.last_name})
+                else:
+                    return JsonResponse({"status": "done"})
         raise Http404()
 
 # POST 
