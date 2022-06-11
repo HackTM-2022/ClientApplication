@@ -32,6 +32,7 @@ urlpatterns = [
     path("register-bike/", app_views.RegisterBikeView.as_view(),name='register-bike'),
     path("register-bike/remove-bike/<int:pk>/", app_views.RemoveBikeView.as_view(),name='remove-bike'),
     path("start-trip/", app_views.CreateReservation.as_view(),name="start-trip"),
+    path("end-trip/", app_views.EndReservation.as_view(),name="end-trip"),
     path("bike-ping/", app_views.ReceiveBikePing.as_view(),name="bike-ping"),
 
     # QR page

@@ -114,5 +114,15 @@ class ReceiveBikePing(View):
 
 # POST 
 class EndReservation(UserMixin,View):
-    pass
+    def get(self, request, *args, **kwargs):
+        raise Http404()
+    def post(self, request, *args, **kwargs):
+        user = self.request.user
+        if user:
+            res = Reservation.objects.all().filter(user=user,active=True)
+            for el in res:
+                el.active=False
+                el.save()
+                return JsonResponse({"status":"Ended trip"})
+        raise Http404()
 
