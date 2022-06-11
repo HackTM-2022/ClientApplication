@@ -17,7 +17,7 @@ import re
 
 from testApp.models import *
 from testApp.forms import *
-from testApp.mixins import UserMixin
+from testApp.mixins import UserMixin, AdminMixin
 
 
 # Create your views here.
@@ -32,63 +32,87 @@ import environ
 class HomeView(TemplateView):
     template_name = "home.html"
 
-class RegisterBikeView(UserMixin, View):
-    def get_client_ip(self, request):
-        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-        if x_forwarded_for:
-            ip = x_forwarded_for.split(',')[0]
-        else:
-            ip = request.META.get('REMOTE_ADDR')
-        return ip
-    def is_local_ip(self, request):
-        return re.search("^(10|127|169\.254|172\.1[6-9]|172\.2[0-9]|172\.3[0-1]|192\.168)\.",self.get_client_ip(request))
+
+class RegisterBikeView(AdminMixin, ListView):
+    template_name="registerBikeView.html"
+    model=Bike
+    paginate_by=10
+    ordering = ['id']
+    
     def get(self, request, *args, **kwargs):
-        return JsonResponse({"status":"working","is_local_ip":self.is_local_ip(request)}, status=200)
+        context = {}
+        return super(RegisterBikeView, self).get(request, *args, **kwargs)
 
-# class CreatePlan(UserMixin,CreateView):
-#     form_class = PlanForm
-#     model = Plan
-#     template_name = "createPlan.html"
-#     success_url = "../"
+    def post(self, request, *args, **kwargs):
+        bike = Bike()
+        bike.save()
+        return JsonResponse({"secret":bike.secret})
 
-#     def post(self, request, *args, **kwargs):
-#         form_class = self.get_form_class()
-#         form = self.get_form(form_class)
-#         if form.is_valid():
-#             self.object = form.save()
-#         else:
-#             return self.form_invalid(form)
-
-#     def get_context_data(self, **kwargs):
-#         context=super().get_context_data(**kwargs)
-#         #context["form_operatie"]=OperatieForm()
-#         return context
+class RemoveBikeView(AdminMixin, DeleteView):
+    model=Bike
+    success_url = "../../"
+    def get(self, request, *args, **kwargs):
+        return self.delete(request, *args, **kwargs)
     
-#     def form_invalid(self, request, *args, **kwargs):
-#         raise Http404()
-    
+    def post(self,request, *args, **kwargs):
+        return super(RemoveBikeView, self).post(request, *args, **kwargs)
 
-class TmpConfirm(UserMixin,TemplateView):
-    template_name="tmp.html"
-# class Addtmp(UserMixin,CreateView):
-#     model = Operatie
-#     form_class = OperatieForm
-#     def get(self, request, *args, **kwargs):
-#         raise Http404()
-#     # def post(self, request, *args, **kwargs):
-#     #     self.object = None
-#     #     tempdict = self.request.POST.copy()
-#     #     tempdict['obj'] = Obj.objects.get(pk=tempdict['obj'])
-#     #     form = self.form_class(tempdict)
-#     #     breakpoint()
-#     #     if form.is_valid():
-#     #         return self.form_valid(form)
-#     #     else:
-#     #         return self.form_invalid(form)
-#     def form_valid(self, form):
-#         self.object = form.save()
-#         return HttpResponse(200)
-#     def form_invalid(self, form):
-#         return HttpResponse(400)#         return HttpResponse(400)
-class QRView(TemplateView):
+class QRView(UserMixin,TemplateView):
     template_name = "qr.html"
+
+# POST start-trip with bike_code secret
+class CreateReservation(UserMixin,View):
+    def post(self,request, *args, **kwargs):
+        form = ReservationForm(self.request.POST)
+        if form.is_valid():
+            bkc = self.request.POST.get("bike_code")
+            bk_queryset = Bike.objects.all().filter(secret=bkc).order_by("pk")
+            if len(bk_queryset)>0:
+                bk = bk_queryset[0]
+                if self.request.user:
+                    # Check for any other current trip for bike and user
+                    if len(Reservation.objects.all().filter(bike=bk,active=True))==0:
+                        if len(Reservation.objects.all().filter(user=self.request.user,active=True))==0:
+                            res = Reservation(bike=bk,user=self.request.user,active=True)
+                            res.save()
+                        else:
+                            return JsonResponse({"status":"error","info":"Another trip is active for user"})
+                    else:
+                        return JsonResponse({"status":"error","info":"Another trip is active for bike"})
+                else:
+                    return JsonResponse({"status":"error","info":"Wrong user"})
+            else:
+                return JsonResponse({"status":"error","info":"Wrong bike identifier"})
+        else:
+            return JsonResponse({"status":"error","info":"Wrong bike identifier"})
+
+    def get(self, request, *args, **kwargs):
+        raise Http404()
+
+# POST bike-ping with bike_code lat lon battery
+class ReceiveBikePing(View):
+    def get(self, request, *args, **kwargs):
+        raise Http404()
+    def post(self, request, *args, **kwargs):
+        form = BikeDataForm(self.request.POST)
+        if form.is_valid():
+            bkc = self.request.POST.get("bike_code")
+            bk_queryset = Bike.objects.all().filter(secret=bkc).order_by("pk")
+            if len(bk_queryset)>0:
+                bk = bk_queryset[0]
+                # Save the bike data
+                bd = form.save()
+                bd.bike = bk
+                bd.save()
+                # If a job is available, update
+                res = Reservation.objects.all().filter(bike=bk,active=True)
+                if len(res)>0:
+                    return JsonResponse({"email": res.user.email, \
+                                        "first_name":res.user.first_name, \
+                                        "last_name":res.user.last_name})
+        raise Http404()
+
+# POST 
+class EndReservation(UserMixin,View):
+    pass
+

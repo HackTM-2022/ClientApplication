@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.utils.translation import gettext_lazy as _
 from django.core.validators import MaxValueValidator, MinValueValidator
 import random
+import uuid
 # Create your models here.
 
 # AbstractUser
@@ -41,20 +42,51 @@ class UserManager(BaseUserManager):
 class CustomUser(AbstractUser):
     objects = UserManager()
 
+    GENERAL = 0
+    ADMIN = 1
+    ROLE_CHOICES = (
+        (GENERAL, 'General'),
+        (ADMIN, 'Admin'),
+    )
+    
     username = None
     email = models.EmailField(_('email address'), unique=True)
     first_name = models.CharField(_('first name'), max_length=200, blank=True, default="")
     last_name = models.CharField(_('last name'), max_length=200, blank=True, default="")
     telefon = models.CharField(max_length=100,blank=True, default="")
+    role = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, default=0)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ["first_name","last_name","password"]
 
+    def __str__(self):
+        n = ""
+        r = ""
+        res = ""
+        try:
+            n = self.email
+        except:
+            pass
+        try:
+            r = self.ROLE_CHOICES[self.role][1]
+        except:
+            pass
+        return f'{n} | {r}'
 
 class Bike(models.Model):
-    secret = models.CharField(max_length=256,blank=True,default="")
+    secret = models.UUIDField(
+         primary_key = False,
+         unique=True,
+         default = uuid.uuid4,
+         editable = True)
 
 class Reservation(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=False, blank=False, related_name="reservations")
     bike = models.ForeignKey(Bike, on_delete=models.CASCADE, null=False, blank=False, related_name="reservations")
-    
+    active = models.BooleanField(default=False)
+
+class BikeData(models.Model):
+    bike = models.ForeignKey(Bike, on_delete=models.CASCADE, null=True, blank=True,related_name="data")
+    lat=models.CharField(max_length=256,default="")
+    lon=models.CharField(max_length=256,default="")
+    battery=models.IntegerField(default=0)

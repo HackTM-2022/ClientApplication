@@ -2,7 +2,7 @@ from django import forms
 from testApp.models import *
 from django_select2 import forms as s2forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-
+import uuid
 
 class UsersForm(UserCreationForm):
     error_messages = {
@@ -11,7 +11,13 @@ class UsersForm(UserCreationForm):
     email = forms.EmailField()
     class Meta:
         model = CustomUser
-        fields = ['email', 'password1', 'password2', 'first_name', 'last_name', 'telefon']
+        fields = ['email', 'password1', 'password2', 'role', 'first_name', 'last_name', 'telefon']
+        widgets = {
+            "role": s2forms.Select2Widget(attrs={
+                'data-placeholder': 'Selectează rolul',
+                'data-minimum-input-length': '0',
+                'data-minimum-results-for-search': '20'}),
+        }
 
 class EditUsersForm(UserChangeForm):
     error_messages = {
@@ -27,4 +33,18 @@ class EditUsersForm(UserChangeForm):
     password = None
     class Meta:
         model = CustomUser
-        fields = ['email', 'password1','first_name', 'last_name', 'telefon']
+        fields = ['email', 'password1', 'role', 'first_name', 'last_name', 'telefon']
+        widgets = {
+            "role": s2forms.Select2Widget(attrs={
+                'data-placeholder': 'Selectează rolul',
+                'data-minimum-input-length': '0',
+                'data-minimum-results-for-search': '20'}),
+        }
+
+class ReservationForm(forms.Form):
+    bike_code = forms.UUIDField()
+
+class BikeDataForm(forms.ModelForm):
+    class Meta:
+        model=BikeData
+        fields = ['lat','lon','battery']

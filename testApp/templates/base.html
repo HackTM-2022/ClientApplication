@@ -66,18 +66,25 @@
                     <div class="col-12 d-flex p-0 justify-content-around flex-wrap">
                       {% if user.is_authenticated %}
                       <div class="nav-item">
+                        <a class="nav-link" href="/qr">Scan QR</a>
+                      </div>
+                      <div class="nav-item">
                         <a class="nav-link" href="{% url 'change-password' %}">Schimbă parola</a>
                       </div>
-                        <div class="nav-item">
-                          <a class="nav-link" href="/logout">Logout</a>
-                        </div>
+                      <div class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                      </div>
                       {% else %}
+                      <div class="nav-item">
+                        <a class="nav-link" href="/qr">Scan QR</a>
+                      </div>
                       <div  class="nav-item">
                         <a  class="nav-link" href="/login">Login</a>
                       </div>
                       <div  class="nav-item">
                         <a  class="nav-link" href="/register">Register</a>
                       </div>
+
                       {% endif %}
                     </div>
                   </div>

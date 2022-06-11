@@ -28,8 +28,11 @@ urlpatterns = [
     path('django-admin/', admin.site.urls, name='django-admin'), # REMOVE IN PRODUCTION
     # Home page
     path('', app_views.HomeView.as_view(), name='home'),
-    path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('images/favicon.ico'))),
-    path("registerBike", app_views.RegisterBikeView.as_view(),name='register-bike'),
+    path('favicon.ico/', RedirectView.as_view(url=staticfiles_storage.url('images/favicon.ico'))),
+    path("register-bike/", app_views.RegisterBikeView.as_view(),name='register-bike'),
+    path("register-bike/remove-bike/<int:pk>/", app_views.RemoveBikeView.as_view(),name='remove-bike'),
+    path("start-trip/", app_views.CreateReservation.as_view(),name="start-trip"),
+    path("bike-ping/", app_views.ReceiveBikePing.as_view(),name="bike-ping"),
 
     # QR page
     path('qr/', app_views.QRView.as_view(), name="QR"),
