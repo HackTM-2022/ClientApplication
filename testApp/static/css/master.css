@@ -1,10 +1,13 @@
 html,body{
+  background-image: linear-gradient(#43ffd2, #37cfbb);
   width: 100%;
-  height: 100%;
   margin: 0;
   padding: 0;
 }
 
+#map {
+  height: 100%;
+}
 
 a.navbar-brand, .panel-title {
   font-weight: bolder;
@@ -80,15 +83,6 @@ a.navbar-brand, .panel-title {
   to {opacity: 1;}
 }
 
-.quiz_modif_button{
-  border-color: #ca302c;
-  background-color: #ca302c;
-  font-family: Patrick Hand, sans-serif;
-  font-size: 10px;
-  outline: none !important;
-  border-width: 0px !important;
-}
-
 .btn-menu-option{
   background-color: #fff;
   border-color: #ddd;
@@ -161,7 +155,6 @@ border-color: #ddd;
 }
 
 
-
 html{
   font-size:100%;
   font-family: 'Montserrat', sans-serif;
@@ -173,7 +166,6 @@ body{
   font-weight: 400;
 }
 .navbar{
-  background-image: linear-gradient(135deg, #a454fd, #2b05df);
   margin-top:0rem;
   padding-top:0rem;
   padding-bottom: 0rem;
@@ -304,7 +296,7 @@ body{
   font-weight: 600;
 }
 .nav-link:hover{
-  color: lightgray !important;;
+  color: #ececec !important;;
 }
 
 .plan-title{
@@ -470,6 +462,16 @@ red: #fe0104
 
 /* Home Page */ 
 
+.saveBtn{
+  background: #1c4464;
+  border-radius: 5px;
+  color: white;
+  border: none;
+  width: auto;
+  transition: all .1s linear;
+}
+
+
 .contain-image{
   width : 100%;
 }
@@ -488,12 +490,6 @@ red: #fe0104
   .col-md-6 .img-box{
     height: 261px;
   }
-}
-
-body {
-  font-family: "Roboto", sans-serif;
-  color: #0c0c0c;
-  background-color: #ffffff;
 }
 
 .layout_padding {
@@ -617,17 +613,6 @@ a:focus {
   font-size: 24px;
 }
 
-.custom_nav-container .nav_search-btn {
-  background-image: url(../images/search-icon.png);
-  background-size: 22px;
-  background-repeat: no-repeat;
-  background-position-y: 7px;
-  width: 35px;
-  height: 35px;
-  padding: 0;
-  border: none;
-}
-
 .navbar-brand {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -638,7 +623,8 @@ a:focus {
 }
 
 .navbar-brand img {
-  width: 40px;
+  width: 75px;
+  height: auto;
   margin-right: 5px;
 }
 
@@ -757,9 +743,6 @@ a:focus {
           transform: translate(0, -50%);
 }
 
-.about_section {
-  font-family: "Poppins", sans-serif;
-}
 
 .about_section .row {
   -webkit-box-align: center;
@@ -818,13 +801,6 @@ a:focus {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-}
-
-.service_section .box {
-  width: 175px;
-  text-align: center;
-  margin: 30px 0;
-  font-family: "Roboto", sans-serif;
 }
 
 .service_section .box .img-2 {
@@ -1322,18 +1298,48 @@ a:focus {
 /* end footer section*/
 /*# sourceMappingURL=style.css.map */
 
-.saveBtn{
-  background: #1c4464;
-  border-radius: 5px;
-  color: white;
-  border: none;
-  width: auto;
-  transition: all .1s linear;
-}
 
 /* QR Page */
 
 .camera{
   border: 1px solid gray;
   border-radius: 5%;
+}
+
+
+.color-primary{
+  color: #ff43da;
+}
+
+/* Navbar */
+button.navbar-toggler {
+  color: rgba(0,0,0,.55);
+  border-color: rgba(0,0,0,.1);
+  width: auto;
+}
+
+.navbar .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 67, 218, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.navbar-toggler:focus {
+  text-decoration: none;
+  outline: 0;
+  box-shadow: 0 0 0 0.025rem;
+}
+
+/* Maps */
+
+.finish-ride {
+ border: 1px solid #37cfbb !important;
+ border-color: #37cfbb !important;
+ background-color:#43ffd2;
+ border-radius: 25%;
+ width : 250px
+}
+
+.white-box{
+  background-color: white;
+  border-radius: 30px;
+  padding: 25px;
 }

@@ -31,7 +31,19 @@ import environ
 
 class HomeView(TemplateView):
     template_name = "home.html"
-
+    def post(self,request, *args, **kwargs):
+        user = self.request.user
+        if user and user.is_active:
+            res = Reservation.objects.all().filter(user=user,active=True)
+            if len(res)>0:
+                res=res[0]
+                data = BikeData.objects.all().filter(reservation=res,bike=res.bike)
+                f_data = []
+                for el in data:
+                    f_data.append({"lat":el.lat,"lon":el.lon,"battery":el.battery})
+                return JsonResponse(f_data,safe=False)
+            return JsonResponse({})
+        return super(HomeView, self).post(request, *args, **kwargs)
 
 class RegisterBikeView(AdminMixin, ListView):
     template_name="registerBikeView.html"
@@ -59,6 +71,9 @@ class RemoveBikeView(AdminMixin, DeleteView):
 
 class QRView(UserMixin,TemplateView):
     template_name = "qr.html"
+
+class CurrentLocationView(UserMixin,TemplateView):
+    template_name = "currentLocation.html"
 
 # POST start-trip with bike_code secret
 class CreateReservation(UserMixin,View):
@@ -89,7 +104,9 @@ class CreateReservation(UserMixin,View):
     def get(self, request, *args, **kwargs):
         raise Http404()
 
+
 # POST bike-ping with bike_secret lat lon battery ?bike_code
+@method_decorator(csrf_exempt, name='dispatch')
 class ReceiveBikePing(View):
     def get(self, request, *args, **kwargs):
         raise Http404()
@@ -112,7 +129,12 @@ class ReceiveBikePing(View):
                 # If a job is available, update
                 res = Reservation.objects.all().filter(bike=bk,active=True)
                 if len(res)>0:
-                    return JsonResponse({"email": res.user.email, \
+                    res = res[0]
+                    # Save the current reservation for the data
+                    bd.reservation = res
+                    bd.save()
+                    return JsonResponse({"status":"job",\
+                                        "email": res.user.email, \
                                         "first_name":res.user.first_name, \
                                         "last_name":res.user.last_name})
                 else:

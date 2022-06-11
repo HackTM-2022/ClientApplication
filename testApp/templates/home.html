@@ -3,85 +3,77 @@
 {% block main %}
 {% load static %}
 
-<html>
-    <!-- slider section -->
-    <section class=" slider_section position-relative">
-
-      <div class="slider_bg-container">
-
-      </div>
-      <div class="slider-container">
-
-        <div class="detail-box">
-          <h1>
-            BIKE CHAIN
-          </h1>
-          <p>
-            Bike Chain is a new start-up that wants to reduce pollution by offering a free bike sharing system. Want to get started Scan the QR on our bikes throughout cities!
-          </p>
-          <div>
-            <a href="/qr" class="slider-link">
-              SCAN QR
-            </a>
-          </div>
-        </div>
-        <div class="img-box">
-          <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img  src="{% static 'images/bike.jpg' %}" ></img>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-      </div>
-
-    </section>
-    <!-- end slider section -->
+<div id="main" class="container d-flex flex-column">
+  <div class="row mt-3">
+    <h5 class="text-align-center text-white fw-bold text-center ps-5 pe-5">
+      Ride a bike for free in your city, and get rewards for producing green energy. Scan the bike code below.
+    </h5>
   </div>
+  <div class="row mt-3">
+    <img class="col-12 col-md-8 col-lg-4 ms-auto me-auto" src="{% static 'images/QRcard.png' %}">
+  </div>
+  <div class="row white-box mt-5">
+    <div class="col-md-6">
+      <div class="detail-box">
+        <h6>About</h6>
+        <div class="custom_heading-container">
+          <h2>How it works</h2>
+          <hr>
+        </div>
+        <p>We use your pedalling as our cost! What does this mean? On the bike there is a battery that gets charged when you pedal! By doing this you provide power to the city and can pay for a free bike ride.</p>
+        <a href="">Read More</a>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="img-box">
+        <img class="zero-pollution" src="{% static 'images/zero_pollution.jpg' %}" alt="">
+      </div>
+    </div>
+  </div>
+<div>
+      <!-- slider section -->
+      <section class=" slider_section position-relative">
 
-  <!-- about section -->
-  <section class="about_section layout_padding">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6">
+        <div class="slider_bg-container">
+
+        </div>
+        <div class="slider-container">
+
           <div class="detail-box">
-            <h6>
-              About
-            </h6>
-            <div class="custom_heading-container">
-              <h2>
-                How it works
-              </h2>
-              <hr>
-            </div>
+            <h1>
+              BIKE CHAIN
+            </h1>
             <p>
-              We use your pedalling as our cost! What does this mean? On the bike there is a battery that gets charged when you pedal! By doing this you provide power to the city and can pay for a free bike ride.
+              Bike Chain is a new start-up that wants to reduce pollution by offering a free bike sharing system. Want to get started Scan the QR on our bikes throughout cities!
             </p>
             <div>
-              <a href="">
-                Read More
+              <a href="/qr" class="slider-link">
+                SCAN QR
               </a>
             </div>
           </div>
-        </div>
-        <div class="col-md-6">
           <div class="img-box">
-            <img class="zero-pollution" src="{% static 'images/zero_pollution.jpg' %}" alt="">
+            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <img  src="{% static 'images/bike.jpg' %}" ></img>
+                </div>
+              </div>
+
+            </div>
+
           </div>
         </div>
-      </div>
 
+      </section>
+      <!-- end slider section -->
     </div>
-  </section>
 
+  <!-- about section -->
 
   <!-- end about section -->
 
   <!-- service section -->
-
   <section class="service_section layout_padding">
     <div class="container">
       <div class="d-flex flex-column align-items-end">
@@ -175,12 +167,10 @@
 
   <!-- end service section -->
 
-</body>
 
-</html>
+  <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript" src="js/bootstrap.js"></script>
 
-
-<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.js"></script>
+</div>
 
 {% endblock %}

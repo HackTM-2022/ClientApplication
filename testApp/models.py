@@ -55,7 +55,7 @@ class CustomUser(AbstractUser):
     last_name = models.CharField(_('last name'), max_length=200, blank=True, default="")
     telefon = models.CharField(max_length=100,blank=True, default="")
     role = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, default=0)
-
+    cocoBikeChain = models.PositiveSmallIntegerField(default=0, blank=True, null=True)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ["first_name","last_name","password"]
 
@@ -92,6 +92,7 @@ class Reservation(models.Model):
 
 class BikeData(models.Model):
     bike = models.ForeignKey(Bike, on_delete=models.CASCADE, null=True, blank=True,related_name="data")
+    reservation = models.ForeignKey(Reservation, on_delete=models.SET_NULL, null=True, blank=True, related_name="data")
     lat=models.CharField(max_length=256,default="")
     lon=models.CharField(max_length=256,default="")
     battery=models.IntegerField(default=0)

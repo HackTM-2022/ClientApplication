@@ -56,51 +56,38 @@
       <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;1,600&display=swap" rel="stylesheet">
   </head>
   <body>
-      <nav class="navbar navbar-light mx-auto w-100">
-        <div class="container justify-content-center" >
-          <div class="row justify-content-center w-100">
-            <div class="col-12 col-md-11 col-lg-10 mt-2 d-flex flex-column flex-md-row" style="align-items:center; justify-content:space-between">
-              <a class="navbar-brand" href="/"> <img src="{% static 'images/logo.png' %}" width="144" height="81"> </a>
-              <ul class="navbar-nav mr-auto custom-navbar d-block">
-                <div class="d-flex justify-content-around row m-0">
-                    <div class="col-12 d-flex p-0 justify-content-around flex-wrap">
-                      <div class="nav-item">
-                        <a class="nav-link" href="/">Home</a>
-                      </div>
-                      {% if user.is_authenticated %}
-                      <div class="nav-item">
-                        <a class="nav-link" href="/qr">Scan QR</a>
-                      </div>
-                      <div class="nav-item">
-                        <a class="nav-link" href="{% url 'change-password' %}">Schimbă parola</a>
-                      </div>
-                      <div class="nav-item">
-                        <a class="nav-link" href="/logout">Logout</a>
-                      </div>
-                      {% else %}
-                      <div class="nav-item">
-                        <a class="nav-link" href="/qr">Scan QR</a>
-                      </div>
-                      <div  class="nav-item">
-                        <a  class="nav-link" href="/login">Login</a>
-                      </div>
-                      <div  class="nav-item">
-                        <a  class="nav-link" href="/register">Register</a>
-                      </div>
-
-                      {% endif %}
-                    </div>
-                  </div>
-              </ul>
+    <nav class="container navbar navbar-expand-lg">
+      <div class="container-fluid">
+        <a class="navbar-brand col-3 mb-2 mt-2" href="/"> <img src="{% static 'images/png/logo color.png' %}"> </a>
+        <div class="h3 col-6 fw-bold mt-2 ms-auto me-auto color-primary text-center" style="flex-grow: 1;">BikeChain Mobility</div>
+        <button class="navbar-toggler col-2 d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse col-lg-3 navbar-collapse justify-content-end" style="flex-shrink: 1;flex-grow: 0;" id="navbarSupportedContent">
+          <form class="d-flex flex-column flex-lg-row text-end">
+            {% if user.is_authenticated %}
+            <div class="nav-item">
+              <a class="nav-link" href="{% url 'change-password' %}" style="white-space: pre;">Change password</a>
             </div>
-            
-          </div>
-          
+            <div class="nav-item">
+              <a class="nav-link" href="/logout">Logout</a>
+            </div>
+            {% else %}
+            <div  class="nav-item">
+              <a  class="nav-link" href="/login">Login</a>
+            </div>
+            <div  class="nav-item">
+              <a  class="nav-link" href="/register">Register</a>
+            </div>
+
+            {% endif %}
+          </form>
         </div>
-         
-      </nav>
+      </div>
+    </nav>
+    
       <div id="main-wrapper">
-        <div class="container container-body">
+        <div class="container">
           {% block main %}{% endblock %}
       </div>
       <footer class="footer mt-2 background-transition">

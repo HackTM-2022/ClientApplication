@@ -30,3 +30,7 @@ class BikeAdmin(admin.ModelAdmin):
 class ReservationAdmin(admin.ModelAdmin):
     list_display = ["id","user", "bike"]
 
+@admin.register(BikeData)
+class BikeDataAdmin(admin.ModelAdmin):
+    list_display = ["bike","reservation","lat","lon","battery"]
+
