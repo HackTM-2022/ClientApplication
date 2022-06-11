@@ -173,7 +173,7 @@ body{
   font-weight: 400;
 }
 .navbar{
-  background-color:green;
+  background-image: linear-gradient(135deg, #a454fd, #2b05df);
   margin-top:0rem;
   padding-top:0rem;
   padding-bottom: 0rem;
@@ -182,8 +182,9 @@ body{
   margin-bottom: 1rem;
   width: 100%;
 }
+
 .footer{
-  background-color:green;
+  background-image: linear-gradient(135deg, #a454fd, #2b05df);
   color:white;
   padding: 1rem 0;
 }
@@ -475,6 +476,18 @@ red: #fe0104
 
 .text-important{
   font-size: 20px;
+}
+
+.zero-pollution{
+  object-fit: contain;
+  height: 100%;
+  width: 100%;
+}
+
+@media (min-width: 1200px) {
+  .col-md-6 .img-box{
+    height: 261px;
+  }
 }
 
 body {
@@ -1294,6 +1307,8 @@ a:focus {
   font-weight: 500;
 }
 
+
+
 .footer_section p {
   color: #292929;
   margin: 0;
@@ -1314,4 +1329,11 @@ a:focus {
   border: none;
   width: auto;
   transition: all .1s linear;
+}
+
+/* QR Page */
+
+.camera{
+  border: 1px solid gray;
+  border-radius: 5%;
 }

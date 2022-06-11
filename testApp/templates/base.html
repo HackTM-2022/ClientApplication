@@ -64,6 +64,9 @@
               <ul class="navbar-nav mr-auto custom-navbar d-block">
                 <div class="d-flex justify-content-around row m-0">
                     <div class="col-12 d-flex p-0 justify-content-around flex-wrap">
+                      <div class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                      </div>
                       {% if user.is_authenticated %}
                       <div class="nav-item">
                         <a class="nav-link" href="/qr">Scan QR</a>
@@ -100,10 +103,10 @@
         <div class="container container-body">
           {% block main %}{% endblock %}
       </div>
-      <footer class="footer mt-2">
+      <footer class="footer mt-2 background-transition">
           <div class="container text-center">
               <p class="p-footer">
-                <strong>&copy;
+                <strong>&copy; BitHunters
                 <a href="https://site.com" target="_blank" class="a-custom">
                 </strong>
               </p>
