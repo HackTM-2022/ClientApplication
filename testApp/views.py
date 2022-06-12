@@ -157,7 +157,7 @@ class EndReservation(UserMixin,View):
                 credit = data[len(data)-1].battery-data[0].battery
                 if credit < 0:
                     credit = 0
-                user.cocoBikeChain+=credit
+                user.cocoBikeChain+=(credit*1000)
                 user.save()
             # End all current user trips
             for el in res:
