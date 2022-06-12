@@ -1,28 +1,43 @@
 {% extends "base.html" %}
 {% load widget_tweaks %}
 {% block main %}
-<div style="text-align: center;" class="padding-top-4 pb-5 mb-5">
+<div style="text-align: center;" class="padding-top-4 pb-5 mb-5 white-box mt-5">
     <div class="content-section col-xs-8 col-sm-6 col-md-4 col-lg-4 offset-xs-2 offset-sm-3 offset-md-4 offset-lg-4 ">
         <form method="POST">
             {% csrf_token %}
             <fieldset class="form-group mb-4">
-                <legend class="border-bottom margin-bottom-2_5 red-color">Înregistrare</legend>
+                <legend class="border-bottom margin-bottom-2_5 color-primary fw-bold">Create an account</legend>
                 
                 {% render_field form.email class="login-input" placeholder="Email" %}
+                {% if form.errors.email %}
+                <div class="alert alert-danger" role="alert">
+                    <h5>{{ form.errors.email }}</h5>
+                </div>
+                {% endif %}
                 {% render_field form.password1 class="login-input" placeholder="Parolă" %}
+                {% if form.errors.password1 %}
+                <div class="alert alert-danger" role="alert">
+                    <h5>{{ form.errors.password1 }}</h5>
+                </div>
+                {% endif %}
                 {% render_field form.password2 class="login-input" placeholder="Confirmă parola" %}
+                {% if form.errors.password2 %}
+                <div class="alert alert-danger" role="alert">
+                    <h5>{{ form.errors.password2 }}</h5>
+                </div>
+                {% endif %}
                 {% render_field form.last_name class="login-input" placeholder="Nume" %}
                 {% render_field form.first_name class="login-input" placeholder="Prenume" %}
                 {% render_field form.telefon class="login-input" placeholder="Telefon" %}
                 
             </fieldset>
             <div class="form-group">
-                <button class="login-button ps-4 pe-4" type="submit">Înregistrează-te</button>
+                <button class="login-button ps-4 pe-4" type="submit">Register</button>
             </div>
         </form>
         <div class="pt-3">
             <small class="text-muted">
-                Ai deja un cont? <a class="ml-2" style="color:black" href="{% url 'login' %}">Autentifică-te</a>
+                Already have an account? <a class="ml-2" style="color:black" href="{% url 'login' %}">Log in</a>
             </small>
         </div>
     </div>

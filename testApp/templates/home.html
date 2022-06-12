@@ -3,173 +3,311 @@
 {% block main %}
 {% load static %}
 
+
+
 <div id="main" class="container d-flex flex-column">
-  <div class="row mt-3">
-    <h5 class="text-align-center text-white fw-bold text-center ps-5 pe-5">
-      Ride a bike for free in your city, and get rewards for producing green energy. Scan the bike code below.
-    </h5>
+  <div class="row mt-4">
+    <h4 class="text-align-center text-white fw-bold text-center ps-5 pe-5" style="line-height: 2.5rem;">
+      Ride a bike for free in your city, and get 
+      <div style="color:#ff43da;display:inline;">
+        rewards
+      </div> for producing <br><div style="color:#17be6a;display:inline;">green energy</div>. Click below to scan the QR code of the bike.
+    </h4s>
   </div>
-  <div class="row mt-3">
-    <img class="col-12 col-md-8 col-lg-4 ms-auto me-auto" src="{% static 'images/QRcard.png' %}">
+  <div class="row mt-3 position-relative">
+    <img hidden id="scan-click" class="col-12 col-md-8 col-lg-4 ms-auto me-auto qr-card" src="{% static 'images/QRcard.svg' %}">
+    <div id="loading" class="d-none">
+      <div class="container" style="position:absolute;">
+          <div class="h1Container">
+      
+          <div class="cube h1 w1 l1">
+              <div class="face top"></div>
+              <div class="face left"></div>
+              <div class="face right"></div>
+          </div>
+      
+          <div class="cube h1 w1 l2">
+              <div class="face top"></div>
+              <div class="face left"></div>
+              <div class="face right"></div>
+          </div>
+      
+          <div class="cube h1 w1 l3">
+              <div class="face top"></div>
+              <div class="face left"></div>
+              <div class="face right"></div>
+          </div>
+      
+          <div class="cube h1 w2 l1">
+              <div class="face top"></div>
+              <div class="face left"></div>
+              <div class="face right"></div>
+          </div>
+      
+          <div class="cube h1 w2 l2">
+              <div class="face top"></div>
+              <div class="face left"></div>
+              <div class="face right"></div>
+          </div>
+      
+          <div class="cube h1 w2 l3">
+              <div class="face top"></div>
+              <div class="face left"></div>
+              <div class="face right"></div>
+          </div>
+      
+          <div class="cube h1 w3 l1">
+              <div class="face top"></div>
+              <div class="face left"></div>
+              <div class="face right"></div>
+          </div>
+      
+          <div class="cube h1 w3 l2">
+              <div class="face top"></div>
+              <div class="face left"></div>
+              <div class="face right"></div>
+          </div>
+      
+          <div class="cube h1 w3 l3">
+              <div class="face top"></div>
+              <div class="face left"></div>
+              <div class="face right"></div>
+          </div>
+          </div>
+          <div class="h2Container">
+      
+          <div class="cube h2 w1 l1">
+              <div class="face top"></div>
+              <div class="face left"></div>
+              <div class="face right"></div>
+          </div>
+      
+          <div class="cube h2 w1 l2">
+              <div class="face top"></div>
+              <div class="face left"></div>
+              <div class="face right"></div>
+          </div>
+      
+          <div class="cube h2 w1 l3">
+              <div class="face top"></div>
+              <div class="face left"></div>
+              <div class="face right"></div>
+          </div>
+      
+          <div class="cube h2 w2 l1">
+              <div class="face top"></div>
+              <div class="face left"></div>
+              <div class="face right"></div>
+          </div>
+      
+          <div class="cube h2 w2 l2">
+              <div class="face top"></div>
+              <div class="face left"></div>
+              <div class="face right"></div>
+          </div>
+      
+          <div class="cube h2 w2 l3">
+              <div class="face top"></div>
+              <div class="face left"></div>
+              <div class="face right"></div>
+          </div>
+      
+          <div class="cube h2 w3 l1">
+              <div class="face top"></div>
+              <div class="face left"></div>
+              <div class="face right"></div>
+          </div>
+      
+          <div class="cube h2 w3 l2">
+              <div class="face top"></div>
+              <div class="face left"></div>
+              <div class="face right"></div>
+          </div>
+      
+          <div class="cube h2 w3 l3">
+              <div class="face top"></div>
+              <div class="face left"></div>
+              <div class="face right"></div>
+          </div>
+          </div>
+          
+          <div class="h3Container">
+      
+          <div class="cube h3 w1 l1">
+              <div class="face top"></div>
+              <div class="face left"></div>
+              <div class="face right"></div>
+          </div>
+      
+          <div class="cube h3 w1 l2">
+              <div class="face top"></div>
+              <div class="face left"></div>
+              <div class="face right"></div>
+          </div>
+      
+          <div class="cube h3 w1 l3">
+              <div class="face top"></div>
+              <div class="face left"></div>
+              <div class="face right"></div>
+          </div>
+      
+          <div class="cube h3 w2 l1">
+              <div class="face top"></div>
+              <div class="face left"></div>
+              <div class="face right"></div>
+          </div>
+      
+          <div class="cube h3 w2 l2">
+              <div class="face top"></div>
+              <div class="face left"></div>
+              <div class="face right"></div>
+          </div>
+      
+          <div class="cube h3 w2 l3">
+              <div class="face top"></div>
+              <div class="face left"></div>
+              <div class="face right"></div>
+          </div>
+      
+          <div class="cube h3 w3 l1">
+              <div class="face top"></div>
+              <div class="face left"></div>
+              <div class="face right"></div>
+          </div>
+      
+          <div class="cube h3 w3 l2">
+              <div class="face top"></div>
+              <div class="face left"></div>
+              <div class="face right"></div>
+          </div>
+      
+          <div class="cube h3 w3 l3">
+              <div class="face top"></div>
+              <div class="face left"></div>
+              <div class="face right"></div>
+          </div>
+          </div>
+          
+      </div>
+      <div class="accent" style="margin-top:200px;text-align: center;">
+          Camera is loading. Please accept the popup prompt.
+      </div>
+  
+    </div>
+    <video hidden class="camera me-auto ms-auto p-0" style="display: block; width:400px;height:400px; object-fit: cover;" id="preview"> </video>
+    <div hidden class="me-auto ms-auto" style="width:100%; height:400px;" id="map"></div>
+    <div class="position-absolute w-100 h-100 d-flex flex-col" style="pointer-events: none;">
+      <button hidden class="btn ms-auto me-auto btn-primary finish-ride" style="bottom: 20px;margin-top: auto;pointer-events: all;">Finish Trip</button>
+    </div>
   </div>
   <div class="row white-box mt-5">
-    <div class="col-md-6">
-      <div class="detail-box">
-        <h6>About</h6>
-        <div class="custom_heading-container">
-          <h2>How it works</h2>
-          <hr>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="detail-box">
+          <h6>About</h6>
+          <div class="custom_heading-container">
+            <h2>How it works</h2>
+            <hr>
+          </div>
+          <p>Get around the city for free, while getting rewards! What does this mean? You can use for free our bikes to go between stations, while also being able to generate green energy from your pedalling that gets stored in a battery on board. By doing this you provide power to the city and get a free bike ride.</p>
+          <!-- <a href="">Read More</a> -->
         </div>
-        <p>We use your pedalling as our cost! What does this mean? On the bike there is a battery that gets charged when you pedal! By doing this you provide power to the city and can pay for a free bike ride.</p>
-        <a href="">Read More</a>
+      </div>
+      <div class="col-md-6">
+        <div class="img-box">
+          <img class="zero-pollution" src="{% static 'images/zero_pollution.jpg' %}" alt="">
+        </div>
       </div>
     </div>
-    <div class="col-md-6">
-      <div class="img-box">
-        <img class="zero-pollution" src="{% static 'images/zero_pollution.jpg' %}" alt="">
+    <div class="row mt-5">
+      <div class="col-md-6">
+        <div class="detail-box">
+          <h6>It's</h6>
+          <div class="custom_heading-container">
+            <h2>Free transportation with a twist</h2>
+            <hr>
+          </div>
+          <p>Free public transportation is itself very nice as long, as long as it is fast. What we offer is another reason to chose public transportation, over driving your own car. Why not contribute to the green energy movement while also getting rewarded?</p>
+          <!-- <a href="">Read More</a> -->
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="img-box">
+          <img class="zero-pollution" src="{% static 'images/banner.png' %}" alt="">
+        </div>
+      </div>
+    </div>
+    <div class="row mt-5">
+      <div class="col-md-6">
+        <div class="img-box">
+          <img class="zero-pollution" src="{% static 'images/icon-dollar.png' %}" alt="">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="detail-box">
+          <h6>Start to</h6>
+          <div class="custom_heading-container">
+            <hr>
+            <h2>Earn bike tokens</h2>
+          </div>
+          <p>Earn bike tokens from the energy generated by pedalling to your destination, which can be spent on eco friendly rewards. You could even receive a free bike from the tokens you stash.</p>
+          <!-- <a href="">Read More</a> -->
+        </div>
+      </div>
+    </div>
+    <div class="row mt-5">
+      <div class="col-md-6">
+        <div class="detail-box">
+          <h6>Why not</h6>
+          <div class="custom_heading-container">
+            <h2>Get rewards instead of being stuck in traffic</h2>
+            <hr>
+          </div>
+          <p>We've all been there stuck in traffic, wondering on what we spend our hard earned money on. Pedal to your destination, for a faster trip in our agglomerated urban areas, to stay fit, save the planet and get something free out of it.</p>
+          <!-- <a href="">Read More</a> -->
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="img-box">
+          <img class="zero-pollution" src="{% static 'images/traffic.png' %}" alt="">
+        </div>
+      </div>
+    </div>
+    <div class="row mt-5 mb-5">
+      <div class="col-md-6">
+        <div class="detail-box">
+          <h6>Let's have</h6>
+          <div class="custom_heading-container">
+            <h2>Less pollution</h2>
+            <hr>
+          </div>
+          <p>Pollute less by biking to your destination for free, instead of using cars.</p>
+          <!-- <a href="">Read More</a> -->
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="img-box">
+          <img class="zero-pollution" src="{% static 'images/less-pollution.jpg' %}" alt="">
+        </div>
       </div>
     </div>
   </div>
 <div>
-      <!-- slider section -->
-      <section class=" slider_section position-relative">
-
-        <div class="slider_bg-container">
-
-        </div>
-        <div class="slider-container">
-
-          <div class="detail-box">
-            <h1>
-              BIKE CHAIN
-            </h1>
-            <p>
-              Bike Chain is a new start-up that wants to reduce pollution by offering a free bike sharing system. Want to get started Scan the QR on our bikes throughout cities!
-            </p>
-            <div>
-              <a href="/qr" class="slider-link">
-                SCAN QR
-              </a>
-            </div>
-          </div>
-          <div class="img-box">
-            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <img  src="{% static 'images/bike.jpg' %}" ></img>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-        </div>
-
-      </section>
-      <!-- end slider section -->
-    </div>
-
-  <!-- about section -->
-
-  <!-- end about section -->
-
-  <!-- service section -->
-  <section class="service_section layout_padding">
-    <div class="container">
-      <div class="d-flex flex-column align-items-end">
-        <div class="custom_heading-container">
-          <hr>
-          <h2>
-            Services
-          </h2>
-
-        </div>
-        <p>
-          There are many variations of passages of Lorem Ipsum available, but the majority
-        </p>
+  <!-- Position it -->
+  <div style="position: absolute; bottom: 0px; right: 0px;">
+    <div id="notification" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header" style="background-color: #ff6464;">
+        <strong class="mr-auto">QR Scaneer</strong>
+      </div>
+      <div class="toast-body">
+        QR Scan is invalid!
       </div>
     </div>
-    <div class="container">
-      <div class="service_container layout_padding2">
-        <a href="">
-          <div class="box">
-            <div class="img-box">
-              <img src="images/s-1.png" alt="" class="img-1">
-              <img src="images/s1-blue.png" alt="" class="img-2">
-            </div>
-            <div class="name">
-              <h6>
-                web
-              </h6>
-            </div>
-          </div>
-        </a>
-        <a href="">
-          <div class="box">
-            <div class="img-box">
-              <img src="images/s-2.png" alt="" class="img-1">
-              <img src="images/s2-blue.png" alt="" class="img-2">
-            </div>
-            <div class="name">
-              <h6>
-                Graph Design
-              </h6>
-            </div>
-          </div>
-        </a>
-        <a href="">
-          <div class="box">
-            <div class="img-box">
-              <img src="images/s-3.png" alt="" class="img-1">
-              <img src="images/s3-blue.png" alt="" class="img-2">
-            </div>
-            <div class="name">
-              <h6>
-                vector Design
-              </h6>
-            </div>
-          </div>
-        </a>
-        <a href="">
-          <div class="box">
-            <div class="img-box">
-              <img src="images/s-4.png" alt="" class="img-1">
-              <img src="images/s4-blue.png" alt="" class="img-2">
-            </div>
-            <div class="name">
-              <h6>
-                Draw
-              </h6>
-            </div>
-          </div>
-        </a>
-        <a href="">
-          <div class="box">
-            <div class="img-box">
-              <img src="images/s-5.png" alt="" class="img-1">
-              <img src="images/s5-blue.png" alt="" class="img-2">
-            </div>
-            <div class="name">
-              <h6>
-                Cloud
-              </h6>
-            </div>
-          </div>
-        </a>
-      </div>
-    </div>
-    <div class="read-btn">
-      <a href="">
-        Read More
-      </a>
-    </div>
-  </section>
-
-  <!-- end service section -->
-
-
-  <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-  <script type="text/javascript" src="js/bootstrap.js"></script>
+  </div>
+<script src="{% static 'js/instascan.min.js' %}"></script>
+<script src="{% static 'js/qr.js' %}"></script>
+<script type="module" src="{% static 'js/maps.js' %}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhRfnzToOSgB3G96PWGufDYO2PmD-N5zc&callback=initMap&v=weekly" defer></script>
 
 </div>
 

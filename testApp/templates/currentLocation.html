@@ -8,12 +8,7 @@
 </div>
 <button class="btn ms-auto me-auto btn-primary finish-ride" >Finish Trip</button>
 <script type="module" src="{% static 'js/maps.js' %}"></script>
-<!-- 
-    The `defer` attribute causes the callback to execute after the full HTML
-    document has been parsed. For non-blocking uses, avoiding race conditions,
-    and consistent behavior across browsers, consider loading using Promises
-    with https://www.npmjs.com/package/@googlemaps/js-api-loader.
--->
+
 <script
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhRfnzToOSgB3G96PWGufDYO2PmD-N5zc&callback=initMap&v=weekly"
     defer

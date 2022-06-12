@@ -34,10 +34,8 @@ urlpatterns = [
     path("start-trip/", app_views.CreateReservation.as_view(),name="start-trip"),
     path("end-trip/", app_views.EndReservation.as_view(),name="end-trip"),
     path("bike-ping/", app_views.ReceiveBikePing.as_view(),name="bike-ping"),
-    path("current-location/", app_views.CurrentLocationView.as_view(),name="current-location"),
+    path("rewards/", app_views.RewardsView.as_view(),name="rewards"),
 
-    # QR page
-    path('qr/', app_views.QRView.as_view(), name="QR"),
     # Auth
     path('register/', user_views.register, name='register'),
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),

@@ -95,4 +95,4 @@ class BikeData(models.Model):
     reservation = models.ForeignKey(Reservation, on_delete=models.SET_NULL, null=True, blank=True, related_name="data")
     lat=models.CharField(max_length=256,default="")
     lon=models.CharField(max_length=256,default="")
-    battery=models.IntegerField(default=0)
+    battery=models.FloatField(default=0)

@@ -38,18 +38,24 @@ class HomeView(TemplateView):
             if len(res)>0:
                 res=res[0]
                 data = BikeData.objects.all().filter(reservation=res,bike=res.bike)
+                returnJson = {}
                 f_data = []
                 for el in data:
                     f_data.append({"lat":el.lat,"lon":el.lon,"battery":el.battery})
-                return JsonResponse(f_data,safe=False)
-            return JsonResponse({})
-        return super(HomeView, self).post(request, *args, **kwargs)
+                returnJson["status"] = "ok"
+                returnJson["f_Data"] = f_data
+                return JsonResponse(returnJson,safe=False)
+            return JsonResponse({"status":"error","details":"No current trip"})
+        return JsonResponse({"status":"error","details":"Not logged in"})
+
+class RewardsView(TemplateView):
+    template_name = "rewards.html"
 
 class RegisterBikeView(AdminMixin, ListView):
     template_name="registerBikeView.html"
     model=Bike
     paginate_by=10
-    ordering = ['id']
+    ordering = ['-id']
     
     def get(self, request, *args, **kwargs):
         context = {}
@@ -58,7 +64,7 @@ class RegisterBikeView(AdminMixin, ListView):
     def post(self, request, *args, **kwargs):
         bike = Bike()
         bike.save()
-        return JsonResponse({"secret":bike.secret})
+        return JsonResponse({"secret":bike.secret,"code":bike.code,"pk":bike.pk})
 
 class RemoveBikeView(AdminMixin, DeleteView):
     model=Bike
@@ -68,12 +74,6 @@ class RemoveBikeView(AdminMixin, DeleteView):
     
     def post(self,request, *args, **kwargs):
         return super(RemoveBikeView, self).post(request, *args, **kwargs)
-
-class QRView(UserMixin,TemplateView):
-    template_name = "qr.html"
-
-class CurrentLocationView(UserMixin,TemplateView):
-    template_name = "currentLocation.html"
 
 # POST start-trip with bike_code secret
 class CreateReservation(UserMixin,View):
@@ -90,6 +90,7 @@ class CreateReservation(UserMixin,View):
                         if len(Reservation.objects.all().filter(user=self.request.user,active=True))==0:
                             res = Reservation(bike=bk,user=self.request.user,active=True)
                             res.save()
+                            return JsonResponse({"status":"ok","info":"Reservation Created"})
                         else:
                             return JsonResponse({"status":"error","info":"Another trip is active for user"})
                     else:
@@ -99,7 +100,7 @@ class CreateReservation(UserMixin,View):
             else:
                 return JsonResponse({"status":"error","info":"Wrong bike identifier"})
         else:
-            return JsonResponse({"status":"error","info":"Wrong bike identifier"})
+            return JsonResponse({"status":"error","info":"Form invalid"})
 
     def get(self, request, *args, **kwargs):
         raise Http404()
@@ -149,6 +150,16 @@ class EndReservation(UserMixin,View):
         user = self.request.user
         if user:
             res = Reservation.objects.all().filter(user=user,active=True)
+            tmp = res[0]
+            # Credit attribution
+            data = BikeData.objects.all().filter(reservation=tmp).order_by("pk")
+            if len(data)>1:
+                credit = data[len(data)-1].battery-data[0].battery
+                if credit < 0:
+                    credit = 0
+                user.cocoBikeChain+=credit
+                user.save()
+            # End all current user trips
             for el in res:
                 el.active=False
                 el.save()

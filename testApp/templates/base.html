@@ -56,22 +56,30 @@
       <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;1,600&display=swap" rel="stylesheet">
   </head>
   <body>
-    <nav class="container navbar navbar-expand-lg">
+    <nav class="container navbar navbar-expand-xxl">
       <div class="container-fluid">
         <a class="navbar-brand col-3 mb-2 mt-2" href="/"> <img src="{% static 'images/png/logo color.png' %}"> </a>
         <div class="h3 col-6 fw-bold mt-2 ms-auto me-auto color-primary text-center" style="flex-grow: 1;">BikeChain Mobility</div>
-        <button class="navbar-toggler col-2 d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler col-2 d-xxl-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse col-lg-3 navbar-collapse justify-content-end" style="flex-shrink: 1;flex-grow: 0;" id="navbarSupportedContent">
-          <form class="d-flex flex-column flex-lg-row text-end">
+          <form class="d-flex flex-column flex-xxl-row text-end">
             {% if user.is_authenticated %}
+            <div class="nav-item">
+              <a class="nav-link" href="{% url 'rewards' %}">Rewards</a>
+            </div>
             <div class="nav-item">
               <a class="nav-link" href="{% url 'change-password' %}" style="white-space: pre;">Change password</a>
             </div>
             <div class="nav-item">
               <a class="nav-link" href="/logout">Logout</a>
             </div>
+            {% if user.role == 1 %}
+            <div  class="nav-item">
+              <a  class="nav-link" href="{% url 'register-bike' %}">Admin</a>
+            </div>
+            {% endif %}
             {% else %}
             <div  class="nav-item">
               <a  class="nav-link" href="/login">Login</a>
@@ -79,21 +87,21 @@
             <div  class="nav-item">
               <a  class="nav-link" href="/register">Register</a>
             </div>
-
             {% endif %}
+
           </form>
         </div>
       </div>
     </nav>
     
       <div id="main-wrapper">
-        <div class="container">
+        <div class="container" style="min-height: calc(100vh - 163px);">
           {% block main %}{% endblock %}
       </div>
       <footer class="footer mt-2 background-transition">
           <div class="container text-center">
               <p class="p-footer">
-                <strong>&copy; BitHunters
+                <strong>&copy; BitHunters 2022
                 <a href="https://site.com" target="_blank" class="a-custom">
                 </strong>
               </p>

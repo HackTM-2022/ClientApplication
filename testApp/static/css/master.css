@@ -1,9 +1,11 @@
 html,body{
   background-image: linear-gradient(#43ffd2, #37cfbb);
   width: 100%;
+  min-height: 100vh;
   margin: 0;
   padding: 0;
 }
+
 
 #map {
   height: 100%;
@@ -176,7 +178,7 @@ body{
 }
 
 .footer{
-  background-image: linear-gradient(135deg, #a454fd, #2b05df);
+  background: transparent;
   color:white;
   padding: 1rem 0;
 }
@@ -195,7 +197,7 @@ body{
   color:#fe0104;
 }
 .login-button{
-  background-color:#fe0104;
+  background-color:#ff43da;
   border:none;
   border-radius:30px;
   text-transform: uppercase;
@@ -294,6 +296,7 @@ body{
   text-transform: uppercase;
   color: white !important;
   font-weight: 600;
+  font-size: 0.9rem;
 }
 .nav-link:hover{
   color: #ececec !important;;
@@ -429,12 +432,12 @@ red: #fe0104
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1c4464;
+  background: #b32f99;
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #15344d;
+  background: #a02988;
 }
 /* End scrollBar */
 
@@ -463,7 +466,7 @@ red: #fe0104
 /* Home Page */ 
 
 .saveBtn{
-  background: #1c4464;
+  background: #b32f99;
   border-radius: 5px;
   color: white;
   border: none;
@@ -471,6 +474,9 @@ red: #fe0104
   transition: all .1s linear;
 }
 
+.saveBtn:hover{
+  background: hsl(312, 58%, 50%);
+}
 
 .contain-image{
   width : 100%;
@@ -623,7 +629,7 @@ a:focus {
 }
 
 .navbar-brand img {
-  width: 75px;
+  width: 85px;;
   height: auto;
   margin-right: 5px;
 }
@@ -1308,7 +1314,7 @@ a:focus {
 
 
 .color-primary{
-  color: #ff43da;
+  color: #ff43da!important;
 }
 
 /* Navbar */
@@ -1331,15 +1337,255 @@ button.navbar-toggler {
 /* Maps */
 
 .finish-ride {
- border: 1px solid #37cfbb !important;
- border-color: #37cfbb !important;
- background-color:#43ffd2;
- border-radius: 25%;
- width : 250px
+ border: 1px solid #ff30d6 !important;
+ border-color: #ff30d6 !important;
+ background-color:#ff43da;
+ border-radius: 35px;
+ width: 250px;
+ display: flex;
+ position: relative;
+ align-items: center;
+ justify-content: center;
+ bottom: 60px;
+}
+
+.finish-ride:hover{
+  background-color: #e03cc2 !important;
 }
 
 .white-box{
   background-color: white;
   border-radius: 30px;
   padding: 25px;
+}
+
+.qr-card{
+  cursor: pointer;
+  padding: 0;
+  border-radius: 25px;
+  box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
+  transition: .1s ease-in all;
+}
+
+.qr-card:hover{
+  transform: scale(1.01);
+  box-shadow: rgb(0 0 0 / 35%) 0px 5px 35px;
+}
+
+/* User administration */
+.qr-card {
+  -webkit-animation: breathing 2s ease-out infinite alternate;
+  animation: breathing 2s ease-out infinite alternate;
+  -webkit-font-smoothing: antialiased;  
+}
+
+
+@-webkit-keyframes breathing {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+
+  25% {
+    -webkit-transform: scale(1.01);
+    transform: scale(1.01);
+  }
+
+  60% {
+    -webkit-transform: scale(1.02);
+    transform: scale(1.02);
+  }
+
+  100% {
+    -webkit-transform: scale(1.03);
+    transform: scale(1.03);
+  }
+}
+
+@keyframes breathing {
+  0% {
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+  }
+
+  25% {
+    -webkit-transform: scale(1.01);
+    -ms-transform: scale(1.01);
+    transform: scale(1.01);
+  }
+
+  60% {
+    -webkit-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+    transform: scale(1.02);
+  }
+
+  100% {
+    -webkit-transform: scale(1.03);
+    -ms-transform: scale(1.03);
+    transform: scale(1.03);
+  }
+}
+
+/* Grid */
+
+.card-list{
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 0;
+  border-radius: .25rem;
+  overflow-y: auto;
+  height: 100%;
+  margin-right: -25px;
+  padding-right: 25px;
+  scrollbar-color: #b32f99 transparent;
+}
+
+.mh-grid-list{
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 0;
+  border: 2px #b32f99 solid;
+  border-radius: 20px;
+  overflow-y: auto;
+  overflow-y: overlay;
+  flex-grow: 1;
+  scrollbar-color: #b32f99 transparent;
+}
+
+.mh-grid-list > div{
+  border-bottom: 2px #b32f99 solid;
+}
+
+.mh-grid-list > div:last-child{
+  border-bottom: none;
+}
+
+.mh-grid-row{
+  padding: 10px 20px 10px 20px;
+  user-select: none;
+  transition: all .1s linear;
+}
+
+.mh-grid-row:hover{
+  background: #306c9810;
+  cursor: pointer;
+}
+
+.mh-grid-list::-webkit-scrollbar-button:end:decrement {
+  height: 10px;
+  display: block;
+  background: transparent;
+}
+
+.mh-grid-list::-webkit-scrollbar-button:start:increment {
+  height: 10px;
+  display: block;
+  background: transparent;
+}
+
+
+.card{
+  background: #ff43da;
+  border-radius: 15px;
+  padding: 5px 20px 10px 20px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  user-select: none;
+  transition: all .2s linear;
+}
+
+.card-title{
+  font-weight: bold;
+}
+
+.card:hover{
+  background: #eb3ec8;
+}
+
+.card-alt{
+  background: 	hsl(205, 52%, 39%)!important;
+  transition: all .1s linear;
+}
+
+.card-alt:hover{
+  background: 	hsl(205, 52%, 34%)!important;
+}
+
+.card-disabled{
+  background: #b32f99!important;
+  cursor: default!important;
+}
+
+.card-disabled:hover{
+  background: #b32f99!important;
+}
+
+.panel-title{
+  color: white;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.card-el-value-pill{
+  background: white;
+  color: #b32f99;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 14px;
+  font-weight: normal;
+  border-radius: 5px;
+  padding: 1px 8px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  width: min-content;
+  max-width: 100%;
+}
+
+.card-el-value-pill.accent{
+  background: #b32f99;
+  color: white;
+}
+
+.card-el-more-container{
+  display: flex;
+  margin-right: -25px;
+  max-width: 100%;
+}
+
+.card-el-more{
+  width: min-content;
+  /* margin-left: 5px; */
+}
+
+.more-btn{
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  color: #ffffffce;
+  font-size: normal;
+  transition: all .1s linear;
+}
+
+.more-btn:hover{
+  color: #ffffff8e;
+}
+
+.card-el{
+  margin-bottom:5px;
+}
+
+.card-el-title{
+  font-weight: lighter;
+  font-size: 14px;
+  color: #b32f99;
+}
+
+.card-el-value{
+  margin-top: -5px;
+  font-size: 16px;
 }

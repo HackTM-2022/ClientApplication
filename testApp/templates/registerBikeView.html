@@ -5,32 +5,63 @@
 <!-- Paging -->
 {% load my_tags %}
 
-<div>
+<div class="white-box">
     <form id="genTokenForm" method="POST" class="row w-100" action="{% url 'register-bike' %}">
-        <h4 class="panel-title accent"></h4>
-        <div class="d-flex flex-row">
-            <div>Token generat:</div>
-            <div id="tokenField"></div>
-        </div>
-        <div class="row" style="margin:15px 0 0 0;">
+        <h4 class="panel-title color-primary ms-3">Bike list</h4>
+        <div class="row mb-4" style="justify-content: end;">
             <button type="submit" id="genBikeTokenBtn" class="saveBtn" class="btn btn-primary">Generate new bike token</button>
         </div>
         {% csrf_token %}
     </form>
-    <div class="mh-grid-list admin">
-        Bike ID
+    <div id="bike-list" class="mh-grid-list admin">
+      <div id="list-template" class="d-flex flex-column mh-grid-row accent pt-3 d-none">
+        <div class="d-flex flex-row justify-content-between">
+            <div class="d-flex flex-column" style="flex:1">
+              <div class="card-el-title">Bike Secret</div>
+                <div class="card-el">
+                      <div class="card-el-value align-items-baseline" style="display: inline-flex;flex-wrap: nowrap;">
+                          <div class="card-el-value accent"></div>
+                      </div>
+                </div>
+            </div>
+            <div class="d-flex flex-column" style="flex:1">
+              <div class="card-el-title">Bike QR</div>
+                <div class="card-el">
+                      <div class="card-el-value align-items-baseline" style="display: inline-flex;flex-wrap: nowrap;">
+                          <div class="card-el-value accent"></div>
+                      </div>
+                </div>
+            </div>
+            <div class="d-flex flex-row me-2 justify-content-end" style="width:100px;margin-top:-5px">
+                  <a data-pjax type="button" class="float-right deleteBtn accent ms-3 align-self-center" url="" 
+                      data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
+                      <i class="bi bi-trash-fill" style="font-size: 20px;cursor: pointer;">
+                      </i>
+                  </a>
+            </div>
+        </div>
+      </div>
         {% for object in object_list %}
         <div class="d-flex flex-column mh-grid-row accent pt-3">
           <div class="d-flex flex-row justify-content-between">
               <div class="d-flex flex-column" style="flex:1">
+                <div class="card-el-title">Bike Secret</div>
                   <div class="card-el">
                         <div class="card-el-value align-items-baseline" style="display: inline-flex;flex-wrap: nowrap;">
                             <div class="card-el-value accent">{{object.secret}}</div>
                         </div>
                   </div>
               </div>
-              <div class="d-flex flex-row me-2" style="width:100px;margin-top:-5px">
-                    <a data-pjax type="button" class="float-right deleteBtn accent ms-3" url="{% url 'remove-bike' object.pk %}" 
+              <div class="d-flex flex-column" style="flex:1">
+                <div class="card-el-title">Bike QR</div>
+                  <div class="card-el">
+                        <div class="card-el-value align-items-baseline" style="display: inline-flex;flex-wrap: nowrap;">
+                            <div class="card-el-value accent">{{object.code}}</div>
+                        </div>
+                  </div>
+              </div>
+              <div class="d-flex flex-row me-2 justify-content-end" style="width:100px;margin-top:-5px">
+                    <a data-pjax type="button" class="float-right deleteBtn accent ms-3 align-self-center" url="{% url 'remove-bike' object.pk %}" 
                         data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
                         <i class="bi bi-trash-fill" style="font-size: 20px;cursor: pointer;">
                         </i>
@@ -91,10 +122,17 @@
                 async: false,
                 url: "{% url 'register-bike' %}"
         }).then(function (data) {
-            $("#tokenField").html(data["secret"]);
+            var tmp = $("#list-template").clone();
+            var els = tmp.find(".card-el-value.accent");
+            els.eq(0).html(data["secret"]);
+            els.eq(1).html(data["code"]);
+            tmp.find("a").attr("url","remove-bike/"+data["pk"]+"/");
+            tmp.attr("id","");
+            tmp.toggleClass("d-none");
+            $("#bike-list").prepend(tmp);
         });
     });
-    $(".deleteBtn").click(function(event){
+    $("body").on("click",".deleteBtn",function(event){
       event.stopPropagation();
       $("#confirmDeleteModal>.modal-dialog>.modal-content>.modal-footer>.btn-primary").attr("onclick", "window.location.href='"+$(this).attr("url")+"';");
     });

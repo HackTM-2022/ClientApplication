@@ -2,11 +2,12 @@
  #loading{
     display: flex;
     justify-content: center;
-    max-width: 600px;
+    max-width: 400px;
+    height: 400px;
     align-items: center;
     margin: auto;
     padding: 0;
-    margin-top: 100px;
+
     padding-bottom: 50px;
     z-index: 100;
     flex-direction: column;
@@ -15,7 +16,7 @@
     border: 1px #dedede solid;
     box-shadow: rgb(100 100 111 / 20%) 8px 7px 25px 10px;
     text-align: center;
-    position: fixed;
+    position: absolute;
      /* Will not center vertically and won't work in IE6/7. */
     left: 0;
     right: 0;
