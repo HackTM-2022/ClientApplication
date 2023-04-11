@@ -15,10 +15,10 @@ The bikes store the energy you generate by pedalling on a small battery inside t
 
 # About features:
 The homepage allows the user to scan the QR code of the bike they want to get from their phone, and start a trip with it (a base station holding the bike can listen to the trip request, and release it in the future). 
-[Website preview](/Extra/site1.png)
+![Website preview](/Extra/site1.PNG)
 
 The app then follows the path taken by the biker, and may show in the future relative speed, or how many coins they obtain at the current pace. When the user arrives at the destination, they click on end trip to be able to leave the bike (with a base station, the app would wait after ending the trip, for the base station to state that the bike is connected and locked, before letting the user leave).
-[Website preview maps](/Extra/site2.png)
+![Website preview maps](/Extra/site2.PNG)
 
 The administration section shows the current bike secret keys used for identification, and the current QR codes. The QR codes are dynamically generated after each trip. This section has the purpose of demonstrating how when produced, the bikes would be assigned a secret key that is stored by the platform, and embedded once onto the phisical bike hardware, for identification purposes.
-[Website preview admin page](/Extra/site3.png)
+![Website preview admin page](/Extra/site3.PNG)
